@@ -25,6 +25,7 @@ var _planePrefix = "ViroARPlaneSelector_Plane_";
 
 type Props = ViroCommonProps &
   ViroObjectProps & {
+    CustomPlaneComponent: JSX.Element;
     maxPlanes?: number;
     minHeight?: number;
     minWidth?: number;
@@ -80,14 +81,25 @@ export class ViroARPlaneSelector extends React.Component<Props, State> {
             alignment={this.props.alignment}
             onAnchorUpdated={this._onARPlaneUpdated(i)}
           >
-            <ViroQuad
-              materials={"ViroARPlaneSelector_Translucent"}
-              onClick={this._getOnClickSurface(i)}
-              position={surfacePosition}
-              width={surfaceWidth}
-              height={surfaceHeight}
-              rotation={[-90, 0, 0]}
-            />
+            {this.props.CustomPlaneComponent ? (
+              <ViroNode
+                width={this.props.minWidth}
+                height={this.props.minHeight}
+                position={surfacePosition}
+                onClick={this._getOnClickSurface(i)}
+              >
+                {this.props.CustomPlaneComponent}
+              </ViroNode>
+            ) : (
+              <ViroQuad
+                materials={"ViroARPlaneSelector_Translucent"}
+                onClick={this._getOnClickSurface(i)}
+                position={surfacePosition}
+                width={this.props.minWidth}
+                height={this.props.minHeight}
+                rotation={[-90, 0, 0]}
+              />
+            )}
           </ViroARPlane>
         );
       }

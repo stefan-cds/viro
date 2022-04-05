@@ -13,6 +13,7 @@ import { ViroARPlaneType, ViroNativeRef } from "../Types/ViroUtils";
 import * as React from "react";
 import { ViroCommonProps, ViroObjectProps } from "./ViroCommonProps";
 declare type Props = ViroCommonProps & ViroObjectProps & {
+    CustomPlaneComponent: JSX.Element;
     maxPlanes?: number;
     minHeight?: number;
     minWidth?: number;

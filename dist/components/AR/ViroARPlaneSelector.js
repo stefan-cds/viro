@@ -11,7 +11,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -64,7 +68,9 @@ class ViroARPlaneSelector extends React.Component {
                 let surfaceHeight = foundARPlane ? foundARPlane.height : 0;
                 let surfacePosition = foundARPlane ? foundARPlane.center : [0, 0, 0];
                 arPlanes.push(<ViroARPlane_1.ViroARPlane key={_planePrefix + i} minWidth={this.props.minWidth} minHeight={this.props.minHeight} alignment={this.props.alignment} onAnchorUpdated={this._onARPlaneUpdated(i)}>
-            <ViroQuad_1.ViroQuad materials={"ViroARPlaneSelector_Translucent"} onClick={this._getOnClickSurface(i)} position={surfacePosition} width={surfaceWidth} height={surfaceHeight} rotation={[-90, 0, 0]}/>
+            {this.props.CustomPlaneComponent ? (<ViroNode_1.ViroNode width={this.props.minWidth} height={this.props.minHeight} position={surfacePosition} onClick={this._getOnClickSurface(i)}>
+                {this.props.CustomPlaneComponent}
+              </ViroNode_1.ViroNode>) : (<ViroQuad_1.ViroQuad materials={"ViroARPlaneSelector_Translucent"} onClick={this._getOnClickSurface(i)} position={surfacePosition} width={this.props.minWidth} height={this.props.minHeight} rotation={[-90, 0, 0]}/>)}
           </ViroARPlane_1.ViroARPlane>);
             }
             return arPlanes;
